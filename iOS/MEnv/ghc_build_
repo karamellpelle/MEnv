@@ -1,0 +1,33 @@
+#!/bin/sh
+# compile Haskell static library, from XCode
+
+
+# define ghc-ios
+GHC_IOS_BUILD_DIR=/Users/karamellpelle/install/ghc-ios      # define your ghc-ios source folder here
+GHC_IOS_DIR=/usr/local/ghc-ios                              # define your ghc-ios install folder here
+GHC_IOS_BIN=$GHC_IOS_DIR/bin
+GHC_IOS_LIB=$GHC_IOS_DIR/lib
+export PATH="$GHC_IOS_BIN:$PATH"
+source $GHC_IOS_BUILD_DIR/env.sh                            # use environment varibles for ghc-ios
+
+# XCode variables
+export SOURCE_ROOT=/Users/karamellpelle/Documents/MEnv/iOS  # define Xcode project folder, i.e. parent folder to this build script. (fixme: do this automatically!)
+export TARGET_NAME=MEnv
+export TARGET_BUILD_DIR=/tmp                                # build temporaries goes here
+TARGET_PATH=$SOURCE_ROOT/$TARGET_NAME/
+DIST=$TARGET_BUILD_DIR/haskell
+
+#echo "platform is: $PLATFORM_NAME"
+#echo "action is:   $ACTION"
+#echo "dist is:     $DIST"
+
+
+BUILD_WARNINGS="-Wall -fno-warn-name-shadowing -fno-warn-unused-matches -fno-warn-unused-binds -fno-warn-unused-do-bind -fno-warn-missing-signatures -fno-warn-unused-imports"
+BUILD_PLATFORM="-DGRID_PLATFORM_IOS"
+
+mkdir -p $DIST
+cd haskell
+echo "platform:         $BUILD_PLATFORM"
+
+# compile into archive $TARGET_PATH/Main.a
+arm-apple-darwin10-ghc "$@" $BUILD_WARNINGS -XCPP $BUILD_STYLE $BUILD_PLATFORM -outputdir $DIST -threaded --make Main.hs -o $TARGET_PATH/Main || exit 1
