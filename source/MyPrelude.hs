@@ -185,7 +185,7 @@ moduloTau :: Float -> Float
 moduloTau p =
     p - 6.2831855 * fromIntegral (floor (p * 0.15915494) :: Int)
 
--- | put 'p' inside (tau, tau)
+-- | put 'p' inside (-tau, tau)
 moduloNegTauTau :: Float -> Float
 moduloNegTauTau p =
     p - 6.2831855 * fromIntegral (truncate (p * 0.15915494) :: Int)
@@ -202,7 +202,7 @@ predMod m n =
 
 invMod :: UInt -> UInt -> UInt 
 invMod m n = 
-    (m - n) `mod` n
+    (m - n `mod` m)
 
 
 --------------------------------------------------------------------------------

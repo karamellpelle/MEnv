@@ -86,7 +86,7 @@ outputShowFont' pos@(x, y) run b = do
         -- draw text to Screen
         let proj2D = sceneProj2D $ runScene run'
         fontShade fontshade 1.0 proj2D
-        fontDrawDefault fontshade fontdata (valueFontSize * shapeWth (sceneShape (runScene run))) valueFontColor
+        fontDrawDefault fontshade fontdata (valueFontSize * shapeHth (sceneShape (runScene run))) valueFontColor
         fontDraw2DCentered fontshade fontdata x y valueFontText
 
         glEnable gl_CULL_FACE
@@ -94,7 +94,7 @@ outputShowFont' pos@(x, y) run b = do
         return (pos, run', b) 
     
     where
-      valueFontSize = 0.02
+      valueFontSize = 0.04
       valueFontColor = makeFontColorFloat 1.0 1.0 1.0 1.0
       valueFontText = "Haskell inside!"
 

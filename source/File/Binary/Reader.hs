@@ -270,7 +270,7 @@ rSkipNULs = do
 --   True  == 0x02 
 rBool :: Reader Bool
 rBool =
-    (rSatisfy (\w -> w == 0x00 || w == 0x01) >>= \w -> case w of
+    (rSatisfy (\w -> w == 0x01 || w == 0x02) >>= \w -> case w of
         0x01  -> return False
         0x02  -> return True
         _     -> error "rBool"

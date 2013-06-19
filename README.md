@@ -6,7 +6,6 @@ Folders
 
     GLFW/               : GLFW build
     data/               : data files
-    dist/               : (empty)
     iOS/                : iOS build
     source/             : Haskell source
 
